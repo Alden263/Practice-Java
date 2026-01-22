@@ -8,7 +8,10 @@ public class Main {
         Scanner scanner=new Scanner(System.in);
         System.out.print("Nhập số nguyên dương n ");
         long n= scanner.nextLong();
-
+        if(n<0){
+            System.out.println("Vui lòng nhập so nguyen duong");
+            return;
+        }
         Bai1(n);
         Bai2(n);
         Bai3(n);
@@ -80,8 +83,6 @@ public class Main {
 
         }
         for (Long key : CountSNT.keySet()) {
-
-
             long value = CountSNT.get(key);
                 System.out.println("Kết quả " + key + " * " + value );
         }
