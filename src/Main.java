@@ -6,28 +6,27 @@ import static java.lang.Math.sqrt;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
+        System.out.print("Nhập số nguyên dương n ");
+        long n= scanner.nextLong();
 
-
-        Bai1(scanner);
-        Bai2(scanner);
-        Bai3(scanner);
-        Bai4(scanner);
+        Bai1(n);
+        Bai2(n);
+        Bai3(n);
+        Bai4(n);
     }
 
 
-    public static void Bai1(Scanner scanner){
+    public static void Bai1(long n){
         long Tong=0;
-        System.out.print("Nhập số nguyên dương n ");
-        int n= scanner.nextInt();
+
         for(int i=1; i<=n; i++){
             Tong+=i;
         }
         System.out.println("Tổng các số nguyên dương tới n là " + Tong);
 
     }
-    public static void Bai2(Scanner scanner){
-        System.out.print("Nhập số nguyên dương n ");
-        int n= scanner.nextInt();
+    public static void Bai2(long n){
+
         long TongUoc=0;
         if(n<3){
             System.out.println("Số chưa thỏa điều kiện");
@@ -40,9 +39,8 @@ public class Main {
         }
         System.out.println("Tổng các ước của n là " +TongUoc);
     }
-    public static void Bai3(Scanner scanner){
-        System.out.print("Nhập số nguyên dương n ");
-        int n=scanner.nextInt();
+    public static void Bai3(long n){
+
 
         long TongSNT=0;
         if(n<3){
@@ -65,21 +63,9 @@ public class Main {
         System.out.println("Tổng các số nguyen to toi n là "+TongSNT);
 
     }
-    public static boolean LaSNT(int n){
-        if(n<2){
-            return false;
 
-        }
-        for(int i=2;i<=n/2;i++){
-            if(n%i==0) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public static void Bai4(Scanner scanner){
-        System.out.print("Nhập sô n nguyên dương ");
-        long n=scanner.nextInt();
+    public static void Bai4(long n){
+
 
         HashMap<Long, Long> CountSNT = new HashMap<Long,Long>();
         for(long i=2;i<=n;i++){
