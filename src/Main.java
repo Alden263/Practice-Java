@@ -35,7 +35,7 @@ public class Main {
             System.out.println("Số chưa thỏa điều kiện");
             return;
         }
-        for(int j=1; j<=n/2;j++){
+        for(int j=1; j<sqrt(n);j++){
             if(n%j==0){
                 TongUoc+=j;
             }
@@ -50,7 +50,7 @@ public class Main {
             System.out.println("Số nhập không hợp lệ");
             return;
         }
-       for(int i=2; i<=n; i++){
+       for(int i=2; i<=sqrt(n); i++){
            boolean laSNT=true;
            for(int j=2;j<i;j++){
                if(i%j==0){
