@@ -7,7 +7,7 @@ public class Tuan1 {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
         System.out.print("Nhập số nguyên dương n ");
-        long n= scanner.nextLong();
+        int n= scanner.nextInt();
         if(n<0){
             System.out.println("Vui lòng nhập so nguyen duong");
             return;
@@ -19,7 +19,7 @@ public class Tuan1 {
     }
 
 
-    public static void Bai1(long n){
+    public static void Bai1(int n){
         long Tong=0;
 
         for(int i=1; i<=n; i++){
@@ -28,7 +28,7 @@ public class Tuan1 {
         System.out.println("Tổng các số nguyên dương tới n là " + Tong);
 
     }
-    public static void Bai2(long n){
+    public static void Bai2(int n){
 
         long TongUoc=0;
         if(n<3){
@@ -42,7 +42,7 @@ public class Tuan1 {
         }
         System.out.println("Tổng các ước của n là " +TongUoc);
     }
-    public static void Bai3(long n){
+    public static void Bai3(int n){
 
 
         long TongSNT=0;
@@ -67,24 +67,20 @@ public class Tuan1 {
 
     }
 
-    public static void Bai4(long n){
-
-
-        HashMap<Long, Long> CountSNT = new HashMap<Long,Long>();
-        for(long i=2;i<=n;i++){
-            if(n%i==0){
-                long count=0;
-                while (n%i==0){
-                    count++;
-                    n /=i;
-                }
-                CountSNT.put(i,count);
+    public static void Bai4(int n){
+        HashMap<Integer, Integer> CountSNT = new HashMap<>();
+        for(int i=2;i<=n/i;i++){
+            while (n%i==0){
+               CountSNT.put(i,CountSNT.getOrDefault(i,0)+1);
+                n /=i;
             }
-
         }
-        for (Long key : CountSNT.keySet()) {
-            long value = CountSNT.get(key);
-                System.out.println("Kết quả " + key + " * " + value );
+        if(n>1){
+            CountSNT.put(n, CountSNT.getOrDefault(n,0)+1);
+        }
+
+        for (Integer key : CountSNT.keySet()) {
+            System.out.println("Kết quả " + key + " * " + CountSNT.get(key) );
         }
 
     }
