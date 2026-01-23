@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 import static java.lang.Math.sqrt;
 
-public class Main {
+public class Tuan1 {
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
         System.out.print("Nhập số nguyên dương n ");
@@ -35,7 +35,7 @@ public class Main {
             System.out.println("Số chưa thỏa điều kiện");
             return;
         }
-        for(int j=1; j<sqrt(n);j++){
+        for(int j=1; j<n;j++){
             if(n%j==0){
                 TongUoc+=j;
             }
@@ -52,7 +52,7 @@ public class Main {
         }
        for(int i=2; i<=sqrt(n); i++){
            boolean laSNT=true;
-           for(int j=2;j<i;j++){
+           for(int j=2;j<sqrt(i);j++){
                if(i%j==0){
                    laSNT=false;
                    break;
