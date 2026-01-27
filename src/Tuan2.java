@@ -8,7 +8,9 @@ public class Tuan2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        String input2="Dai hoc Sai Gon   la mot trong nhung truong dai hoc lau doi nhat sai  gon";
         Bai1(input);
+        Bai2(input2);
 
 
 
@@ -61,7 +63,12 @@ public class Tuan2 {
         while (st2.hasMoreTokens()){
             String tmp=st2.nextToken();
             map.putIfAbsent(tmp.toLowerCase(),tmp);
+
         }
+        for(String key: map.keySet()){
+            System.out.print(map.get(key)+" ");
+        }
+
 
     }
 }
