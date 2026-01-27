@@ -1,0 +1,4 @@
+hand:chân
+foot:tay
+head:đuôi
+tail:đầu
