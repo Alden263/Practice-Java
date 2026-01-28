@@ -1,0 +1,9 @@
+class; lớphọc
+fan; quạt
+friend; bạnbè
+water; nước
+fire; lửa
+air; khôngkhí
+project; đồán
+prensent; thuyếttrình
+find; tìm

@@ -1,16 +1,18 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.UnknownHostException;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Tuan2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        String input2="Dai hoc Sai Gon   la mot trong nhung truong dai hoc lau doi nhat sai  gon";
-        Bai1(input);
-        Bai2(input2);
+//        String input = scanner.nextLine();
+//        String input2="Dai hoc Sai Gon   la mot trong nhung truong dai hoc lau doi nhat sai  gon";
+//
+//        Bai1(input);
+//        Bai2(input2);
+        String input3=scanner.nextLine();
+        Bai3("src/dictionary.txt",input3);
 
 
 
@@ -68,6 +70,49 @@ public class Tuan2 {
         for(String key: map.keySet()){
             System.out.print(map.get(key)+" ");
         }
+
+
+    }
+    public static void Bai3(String filePath,String word){
+        File Dictionary= new File(filePath);
+        HashMap<String,String> Dic=new HashMap<>();
+        try(Scanner reader= new Scanner(Dictionary)){
+            while (reader.hasNextLine()){
+                String data=reader.nextLine();
+                StringTokenizer st3=new StringTokenizer(data,";");
+
+                while (st3.hasMoreTokens()){
+                    String English=st3.nextToken().trim().toLowerCase();
+                    String Vietnam=st3.nextToken().trim().toLowerCase();
+                    Dic.put(English,Vietnam);
+                    Dic.put(Vietnam,English);
+
+                }
+
+            }
+
+        }catch (FileNotFoundException e){
+            System.err.println(e.getMessage());
+        }
+        boolean found=false;
+        for(Map.Entry<String,String> entry: Dic.entrySet()){
+            if(entry.getValue().equals(word)){
+                found=true;
+                System.out.println("Từ tiếng anh tương ứng là "+entry.getKey());
+                break;
+
+            }
+        }
+        if(!found&&Dic.containsKey(word)){
+            System.out.println("Từ tiếng việt là "+Dic.get(word));
+            found=true;
+        }
+
+
+
+
+        if (!found) System.out.println("Không tìm thấy từ này.");
+
 
 
     }
