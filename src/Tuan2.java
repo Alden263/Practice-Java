@@ -76,6 +76,7 @@ public class Tuan2 {
     public static void Bai3(String filePath,String word){
         File Dictionary= new File(filePath);
         HashMap<String,String> Dic=new HashMap<>();
+
         try(Scanner reader= new Scanner(Dictionary)){
             while (reader.hasNextLine()){
                 String data=reader.nextLine();
@@ -94,24 +95,26 @@ public class Tuan2 {
         }catch (FileNotFoundException e){
             System.err.println(e.getMessage());
         }
-        boolean found=false;
-        for(Map.Entry<String,String> entry: Dic.entrySet()){
-            if(entry.getValue().equals(word)){
-                found=true;
-                System.out.println("Từ tiếng anh tương ứng là "+entry.getKey());
-                break;
+//        boolean found=false;
+//        for(Map.Entry<String,String> entry: Dic.entrySet()){
+//            if(entry.getValue().equals(word)){
+//
+//                System.out.println(" "+entry.getKey());
+//                found=true;
+//                break;
+//
+//            }
+//        }
+        if(Dic.containsKey(word)){
+            System.out.println( Dic.get(word));
 
-            }
+
         }
-        if(!found&&Dic.containsKey(word)){
-            System.out.println("Từ tiếng việt là "+Dic.get(word));
-            found=true;
-        }
 
 
 
 
-        if (!found) System.out.println("Không tìm thấy từ này.");
+//        if (!found) System.out.println("Không tìm thấy từ này.");
 
 
 
