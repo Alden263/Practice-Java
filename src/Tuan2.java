@@ -105,11 +105,7 @@ public class Tuan2 {
 //
 //            }
 //        }
-        if(Dic.containsKey(word)){
-            System.out.println( Dic.get(word));
-
-
-        }
+        System.out.println(Dic.getOrDefault(word, "Không tìm thấy từ này trong từ điển"));
 
 
 
