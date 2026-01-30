@@ -6,11 +6,12 @@ import java.util.*;
 public class Tuan2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//        String input2="Dai hoc Sai Gon   la mot trong nhung truong dai hoc lau doi nhat sai  gon";
-//
-//        Bai1(input);
-//        Bai2(input2);
+        String input = scanner.nextLine();
+        String input2="Dai hoc Sai Gon   la mot trong nhung truong dai hoc lau doi nhat sai  gon";
+
+        Bai1(input);
+        Bai2(input2);
+        System.out.println("\nNhập từ tiếng anh hoặc tiếng việt");
         String input3=scanner.nextLine();
         Bai3("src/Tuan2/dictionary.txt",input3);
 
@@ -74,8 +75,10 @@ public class Tuan2 {
 
     }
     public static void Bai3(String filePath,String word){
+
         File Dictionary= new File(filePath);
         HashMap<String,String> Dic=new HashMap<>();
+
 
         try(Scanner reader= new Scanner(Dictionary)){
             while (reader.hasNextLine()){
