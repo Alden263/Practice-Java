@@ -17,6 +17,7 @@ public class Bai3 {
                 String data= reader.nextLine();
                 try{
                     InetAddress inet01=InetAddress.getByName(data);
+
                     if(inet01.isReachable(1000)){
                         System.out.println("IP "+data+" is reachable");
                     }else {
