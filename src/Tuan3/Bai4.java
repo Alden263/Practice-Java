@@ -10,7 +10,7 @@ public class Bai4 {
             InetAddress local=InetAddress.getLocalHost();
             String localIP=local.getHostAddress();
             String subnet=localIP.substring(0,localIP.lastIndexOf(".")+1);
-            for(int i=1; i<=256;i++){
+            for(int i=1; i<256;i++){
                 String host=subnet+i;
                 InetAddress inet01=InetAddress.getByName(host);
                 System.out.println("Checking IP "+host);
@@ -22,7 +22,7 @@ public class Bai4 {
                     }
 
                 }catch (IOException e){
-                    System.err.println(e.getMessage());
+                    System.out.println(e.getMessage());
                 }
 
             }
