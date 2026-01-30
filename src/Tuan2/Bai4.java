@@ -1,3 +1,4 @@
+package Tuan2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
@@ -11,7 +12,7 @@ public class Bai4 {
         LinkedHashMap<Long,Integer> ATM=new LinkedHashMap<>();
         LinkedHashMap<Long,Integer> result=new LinkedHashMap<>();
 
-        File ATMFile=new File("src/ATM.txt");
+        File ATMFile=new File("src/Tuan2/ATM.txt");
         while(true){
             System.out.println("\nNhập số tiền muốn rút hoặc exit để thoát ");
             Scanner console=new Scanner(System.in);

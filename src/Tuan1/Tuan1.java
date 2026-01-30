@@ -1,3 +1,5 @@
+package Tuan1;
+
 import java.util.Scanner;
 import java.util.HashMap;
 

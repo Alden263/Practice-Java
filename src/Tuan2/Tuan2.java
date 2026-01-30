@@ -1,8 +1,8 @@
+package Tuan2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.UnknownHostException;
 import java.util.*;
-
 public class Tuan2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -12,7 +12,7 @@ public class Tuan2 {
 //        Bai1(input);
 //        Bai2(input2);
         String input3=scanner.nextLine();
-        Bai3("src/dictionary.txt",input3);
+        Bai3("src/Tuan2/dictionary.txt",input3);
 
 
 
