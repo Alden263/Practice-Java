@@ -2,11 +2,20 @@ package Tuan3;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Bai4 {
     public static void main(String[] args){
         try{
+            try{
+                Socket socket=new Socket("sgu.edu.vn",443);
+                String myIP=socket.getLocalAddress().getHostAddress();
+
+            }catch (IOException e){
+                System.out.println("Không tìm thấy");
+            }
+
             InetAddress local=InetAddress.getLocalHost();
             String localIP=local.getHostAddress();
             String subnet=localIP.substring(0,localIP.lastIndexOf(".")+1);
