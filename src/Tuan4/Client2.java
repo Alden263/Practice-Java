@@ -1,17 +1,20 @@
-package Tuan5;
+package Tuan4;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client2 {
+
+
+
 
 
 
         private String host;
         private int port;
 
-        public Client(String host, int port) {
+        public Client2(String host, int port) {
             this.host = host;
             this.port = port;
         }
@@ -54,8 +57,10 @@ public class Client {
         }
 
         public static void main(String[] args) {
-            Client client = new Client("localhost", 2000);
+            Client2 client = new Client2("localhost", 2000);
             client.start();
         }
-}
+    }
+
+
 

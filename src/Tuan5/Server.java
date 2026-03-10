@@ -3,6 +3,10 @@ package Tuan5;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class Server {
     private int port;
@@ -40,6 +44,19 @@ public class Server {
         }
     }
     private String processData(String input) {
+        String url = "http://ip-api.com/json/"+input+"?fields=status,message,country,regionName,continent,city,query,status";
+        try{
+            Document doc = Jsoup.connect(url).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+            JSONObject json = new JSONObject(doc.text());// chuyển JSON dạng text -> Object nhờ thư viện org.json
+            if(json.get("status").equals("fail")){
+                return "Địa chỉ ip không hợp ";
+            }
+            String continent=json.get("continent").toString();
+
+
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+        }
         StringBuilder response = new StringBuilder(input);
         return "Server phản hồi: " + response.reverse().toString();
     }
