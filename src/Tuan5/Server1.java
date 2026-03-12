@@ -1,5 +1,11 @@
 package Tuan5;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import javax.imageio.IIOException;
 import java.io.*;
 import java.net.ServerSocket;
@@ -26,11 +32,42 @@ public class Server1 {
             String dataFromClient;
             while((dataFromClient=reader.readLine())!=null){
                 System.out.println("Server đã nhận "+dataFromClient);
+                if(dataFromClient.equalsIgnoreCase("bye")){
+                    System.out.println("Client yêu cầu đóng kết nối");;
+                    break;
+                }
+                String response=processdata(dataFromClient);
+                writer.println(response);
+                writer.println("<END>");
 
             }
 
         }catch (IOException e){
+            System.err.println("Lỗi kết nối từ Client "+e.getMessage());
+        }
+    }
+    private String processdata(String input){
+        try{
+            String url= "https://masothue.com/Search/?q="+input.trim()+"&type=auto&force-search=1";
+            String newurl= Jsoup.connect(url).method(Connection.Method.GET).followRedirects(true).execute().url().toString();
+            if(newurl.equals(url)){
+                System.out.println("Không tìm thấy thông tin cá nhân ");
+                return "Không tìm thấy thông tin cá nhân";
+            }
+            Document doc= Jsoup.connect(newurl).method(Connection.Method.GET).followRedirects(true).execute().parse();
+            Elements info= doc.getElementsByAttributeValue("class","copy");
+            String fullName=info.get(0).text();
+            String address=info.get(2).text();
+            return fullName +"---"+address;
+
+        }catch (IOException e){
             System.err.println(e.getMessage());
         }
+        return "lỗi";
+
+    }
+    public static void main(String []args){
+        Server1 server=new Server1(2000);
+        server.start();
     }
 }
