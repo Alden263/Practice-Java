@@ -1,8 +1,11 @@
 package Tuan5;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -15,7 +18,7 @@ public class Server {
     }
     public void start(){
         try(ServerSocket server=new ServerSocket(port)){
-            System.out.println("Server đang lắng nghe tại port"+port);
+            System.out.println("Server đang lắng nghe tại port "+port);
             Socket socket=server.accept();
             handleClient(socket);
 
@@ -35,6 +38,7 @@ public class Server {
                     System.out.println("Server nhận yêu cầu đóng kết nối từ client.");
                     break;
                 }
+
                 String response = processData(dataFromClient);
                 writer.println(response);
                 writer.println("<END>"); // Báo client biết đã kết thúc gửi dữ liệu.
@@ -44,21 +48,47 @@ public class Server {
         }
     }
     private String processData(String input) {
-        String url = "http://ip-api.com/json/"+input+"?fields=status,message,country,regionName,continent,city,query,status";
-        try{
-            Document doc = Jsoup.connect(url).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
-            JSONObject json = new JSONObject(doc.text());// chuyển JSON dạng text -> Object nhờ thư viện org.json
-            if(json.get("status").equals("fail")){
-                return "Địa chỉ ip không hợp ";
+        String url = "http://ip-api.com/json/?fields=status,message,country,regionName,continent,city,query";
+        if(input.trim().equals("hello")){
+            try{
+                String privateip= InetAddress.getLocalHost().getHostAddress();
+                Document doc= Jsoup.connect(url).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+                JSONObject json=new JSONObject(doc.text());
+                String publicip=json.get("query").toString();
+                return "Private ip là "+privateip+" Public ip là "+publicip;
+
+            }catch (Exception e){
+                System.err.println(e.getMessage());
             }
-            String continent=json.get("continent").toString();
 
 
-        } catch(IOException e){
-            System.err.println(e.getMessage());
         }
-        StringBuilder response = new StringBuilder(input);
-        return "Server phản hồi: " + response.reverse().toString();
+        if(input.trim().startsWith("req ")){
+            String targetip=input.substring(4).trim();
+            try{
+                String url1 = "http://ip-api.com/json/"+targetip+"?fields=status,message,country,regionName,continent,city,query";
+                Document doc = Jsoup.connect(url1).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+                JSONObject json = new JSONObject(doc.text());// chuyển JSON dạng text -> Object nhờ thư viện org.json
+                if(json.get("status").equals("fail")){
+                    return "Địa chỉ ip không hợp ";
+                }
+
+
+
+                String ip=json.get("query").toString();
+                String continent=json.get("continent").toString();
+                String country =json.get("country").toString();
+                String city= json.get("city").toString();
+                String status=json.get("status").toString();
+                return "Thông tin địa chỉ ip "+ip+" thuộc châu lục "+continent+ " thuộc quốc gia "+country+ " thuộc thành phố "+city+ " có tình trạng "+status;
+            } catch(IOException e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+
+
+        return "Server phản hồi: " ;
     }
 
     public static void main(String[] args) {
