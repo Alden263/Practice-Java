@@ -5,9 +5,6 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-
-
-
         private String host;
         private int port;
 
@@ -31,6 +28,7 @@ public class Client {
             try (Scanner scanner = new Scanner(System.in);
                  BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                  PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
+
                 String userInput;
                 while (true) {
                     System.out.print("Nhập dữ liệu: ");
