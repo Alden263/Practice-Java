@@ -45,34 +45,53 @@ public class Server {
         }
     }
     private String processData(String input){
-        int startpoint=input.lastIndexOf("-p")+2;
-        int endpoint=input.lastIndexOf(".html");
-        String ProductID=input.substring(startpoint,endpoint);
-        String apiGetProduct="https://tiki.vn/api/v2/products/";
-        String apiReviewProduct="https://tiki.vn/api/v2/reviews?product_id="+ProductID+"&limit10";
+//        int startpoint=input.lastIndexOf("-p")+2;
+//        int endpoint=input.lastIndexOf(".html");
+        int startpoint1=input.lastIndexOf("/c")+2;
+        int endpoint1=input.lastIndexOf("");
+        String categoryID=input.substring(startpoint1,endpoint1);
+        System.out.println(categoryID);
+//        String ProductID=input.substring(startpoint,endpoint);
+//        String apiGetProduct="https://tiki.vn/api/v2/products/";
+//        String apiReviewProduct="https://tiki.vn/api/v2/reviews?product_id="+ProductID+"&limit10";
+        String apiCategory="https://tiki.vn/api/personalish/v1/blocks/listings?category="+categoryID;
         StringBuilder result=new StringBuilder();
         try{
-            Document doc= Jsoup.connect(apiGetProduct +ProductID).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
-            JSONObject jsonProduct=new JSONObject(doc.text());
-            String productName= jsonProduct.getString("name");
-            long productPrice=jsonProduct.getLong("price");
-            Document doc2=Jsoup.connect(apiReviewProduct).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
-            result.append("Tên sản phầm là ").append(productName).append(" có giá là ").append(productPrice).append("\n");
-            JSONObject reviewProduct=new JSONObject(doc2.text());
-            Double reviewAverage= reviewProduct.getDouble("rating_average");
-            Double totalReview=reviewProduct.getDouble("reviews_count");
-            result.append("Sản phầm có điểm là ").append(reviewAverage).append(" với tổng số lượt review là ").append(totalReview).append("\n");
-            result.append("Sản phẩm có 10 bình luận đầu tiên bao gồm ").append("\n");
-            JSONArray reviewProductArray=reviewProduct.getJSONArray("data");
-            for(int i=0;i<reviewProductArray.length();i++){
-                JSONObject item=reviewProductArray.getJSONObject(i);
-                String reviewContent= item.getString("content");
-
-                if(!reviewContent.isEmpty()){
-                    result.append("+").append(reviewContent).append("\n");
+//            Document doc= Jsoup.connect(apiGetProduct +ProductID).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+//            JSONObject jsonProduct=new JSONObject(doc.text());
+//            String productName= jsonProduct.getString("name");
+//            long productPrice=jsonProduct.getLong("price");
+//            Document doc2=Jsoup.connect(apiReviewProduct).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+//            result.append("Tên sản phầm là ").append(productName).append(" có giá là ").append(productPrice).append("\n");
+//            JSONObject reviewProduct=new JSONObject(doc2.text());
+//            Double reviewAverage= reviewProduct.getDouble("rating_average");
+//            Double totalReview=reviewProduct.getDouble("reviews_count");
+//            result.append("Sản phầm có điểm là ").append(reviewAverage).append(" với tổng số lượt review là ").append(totalReview).append("\n");
+//            result.append("Sản phẩm có 10 bình luận đầu tiên bao gồm ").append("\n");
+//            JSONArray reviewProductArray=reviewProduct.getJSONArray("data");
+            Document doc3=Jsoup.connect(apiCategory).method(Connection.Method.GET).ignoreContentType(true).userAgent("Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Mobile Safari/537.36").execute().parse();
+            JSONObject categoryProduct=new JSONObject(doc3.text());
+            JSONArray categoryProductArray=categoryProduct.getJSONArray("data");
+            for(int j=0;j<categoryProductArray.length();j++){
+                JSONObject itemCategory=categoryProductArray.getJSONObject(j);
+                String categoryName=itemCategory.getString("name");
+                Long categoryPrice=itemCategory.getLong("price");
+                if(!categoryName.isEmpty()){
+                    result.append("+").append(categoryName).append(" có giá là ").append(categoryPrice).append("\n");
                 }
 
             }
+
+
+//            for(int i=0;i<reviewProductArray.length();i++){
+//                JSONObject item=reviewProductArray.getJSONObject(i);
+//                String reviewContent= item.getString("content");
+//
+//                if(!reviewContent.isEmpty()){
+//                    result.append("+").append(reviewContent).append("\n");
+//                }
+//
+//            }
 
             return result.toString();
 
