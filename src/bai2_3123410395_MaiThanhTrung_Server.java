@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -6,6 +7,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -63,7 +65,27 @@ public class bai2_3123410395_MaiThanhTrung_Server {
 
                 }
                 String completeCityName=cityName.toString();
-                String apiWeather;
+                String encodeCity=URLEncoder.encode(completeCityName,StandardCharsets.UTF_8);
+                String apiWeather= "https://api.tomorrow.io/v4/weather/realtime?location="+encodeCity+"&units=metric&apikey=aLBPESiQGnesp1WKJF8VbQb9rb6oTheX";
+                try{
+                    Document doc = Jsoup.connect(apiWeather).method(Connection.Method.GET).ignoreContentType(true).execute().parse();
+                    JSONObject jsonWeather= new JSONObject(doc.text());
+                    JSONObject data=jsonWeather.getJSONObject("data");
+                    JSONObject location = jsonWeather.getJSONObject("location");
+                    String cityDetail=location.getString("name");
+
+                    JSONObject value=data.getJSONObject("values");
+                    Double temperature = value.getDouble("temperature");
+                    finalres.append("Chức năng tra nhiệt độ: ").append(cityDetail).append(" có nhiệt độ hiện tại là ").append(temperature).append(" độ C");
+
+
+
+
+
+                }catch (IOException e){
+                    System.out.println(e.getMessage());
+                }
+                return finalres.toString();
 
 
 
@@ -82,6 +104,9 @@ public class bai2_3123410395_MaiThanhTrung_Server {
                 }catch (IOException e){
                     System.out.println(e.getMessage());
                 }
+                break;
+            default:
+                finalres.append("Lỗi dữ liệu đầu vào ");
 
 
 
